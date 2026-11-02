@@ -4,7 +4,7 @@
 import Image from "next/image";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import Link from "next/link";
-import { useState } from "react";
+import { useState  , Suspense } from "react";
 import Toast from "@/components/Toast";
 import { products as defaultProducts } from "@/redux/features/product/productSlice";
 import {
@@ -25,7 +25,7 @@ import {
 import InnerImageZoom from "react-inner-image-zoom";
 import "react-inner-image-zoom/lib/styles.min.css";
 
-function ProductDetails() {
+function ProductDetailsContent() {
   const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
   const id = searchParams.get("id");
@@ -458,4 +458,18 @@ function ProductDetails() {
   );
 }
 
-export default ProductDetails;
+export default function ProductDetails() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-red-100">
+          <p className="text-lg font-semibold text-gray-700">
+            Loading product details...
+          </p>
+        </div>
+      }
+    >
+      <ProductDetailsContent />
+    </Suspense>
+  );
+}
