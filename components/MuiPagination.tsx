@@ -2,7 +2,6 @@
 "use client";
 
 import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 
 type Props = {
   currentPage: number;
@@ -20,10 +19,7 @@ export default function MuiPagination({
   }
 
   return (
-    <Stack
-      alignItems="center"
-      className="w-full py-7 sm:py-9"
-    >
+    <div className="flex w-full items-center justify-center py-7 sm:py-9">
       <div className="flex max-w-full items-center justify-center overflow-x-auto rounded-full bg-transparent p-0 shadow-none">
         <Pagination
           count={totalPages}
@@ -76,8 +72,7 @@ export default function MuiPagination({
             },
           }}
         />
-
       </div>
-    </Stack>
+    </div>
   );
 }

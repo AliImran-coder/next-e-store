@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
-  throw new Error("Please add MONGODB_URI to your .env.local file");
+  throw new Error("Please add MONGODB_URI to your environment variables");
 }
 
 type MongooseCache = {
@@ -13,7 +13,6 @@ type MongooseCache = {
 };
 
 declare global {
-  
   var mongooseCache: MongooseCache | undefined;
 }
 
@@ -28,7 +27,7 @@ async function dbConnect() {
   }
 
   if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI);
+    cached.promise = mongoose.connect(MONGODB_URI as string);
   }
 
   try {
